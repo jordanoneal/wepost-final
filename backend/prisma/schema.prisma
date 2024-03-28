@@ -23,8 +23,8 @@ model Comment {
   associatedIncident Incident @relation(fields: [associatedIncidentId], references: [id])
   associatedIncidentId Int
 
-  upvotes   Int
-  downvotes Int
+  upvotes   Int @default(0)
+  downvotes Int @default(0)
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
@@ -41,8 +41,8 @@ model Incident {
   originalPosterId Int
 
   comments  Comment[]
-  upvotes   Int
-  downvotes Int
+  upvotes   Int @default(0)
+  downvotes Int @default(0)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
