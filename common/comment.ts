@@ -3,7 +3,7 @@ import { IUser } from "./user";
 
 export interface IComment {
     id: number;
-    body: string;
+    content: string;
     commenter: IUser;
     associatedIncident: IIncident;
     upvotes: number;
@@ -15,12 +15,12 @@ export interface IComment {
 }
 
 export interface ICreateComment {
-    body: string;
+    content: string;
     commenterId: number;
     associatedIncidentId: number;
 }
 
 export interface IUpdateComment {
-    body?: string;
+    content?: string;
 
 }

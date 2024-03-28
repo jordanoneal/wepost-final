@@ -10,7 +10,7 @@ type Location = {
 export interface IIncident {
     id: number;
     title: string;
-    body: string;
+    content: string;
     location: Location;
 
     //Add user
@@ -30,14 +30,14 @@ export interface IIncident {
 
 export interface ICreateIncident {
     title: string;
-    body: string;
+    content: string;
     location: Location;
     originalPosterId: number;
 
 }
 
 export interface IUpdateIncident {
-    body?: string;
+    content?: string;
     upvotes?: number;
     downvotes?: number;
     comments?: IComment[];
