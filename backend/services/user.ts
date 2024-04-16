@@ -1,19 +1,25 @@
 import { PrismaClient, User } from "@prisma/client";
 import { ICreateUser } from "../../common/user";
+import { hashPassword } from "./auth";
 
 
 const prisma = new PrismaClient();
 
 class UserService {
     public async getUsers(): Promise<User[]> {
-        return await prisma.user.findMany();
+        return await prisma.user.findMany({
+            include: {
+                comments: true,
+                incidents: true
+            }
+        });
     }
 
     public async createUser(params: ICreateUser): Promise<User> {
         const user = await prisma.user.create({
             data: {
                 username: params.username,
-                password: params.password
+                password: await hashPassword(params.password, 10),
             }
         })
         if (!user) throw new Error("Error creating user");
