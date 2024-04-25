@@ -5,7 +5,12 @@ import { UserService } from "./user";
 const prisma = new PrismaClient();
 class IncidentService {
     public async getIncidents(): Promise<Incident[]> {
-        return prisma.incident.findMany();
+        return prisma.incident.findMany({
+            include: {
+                comments: true,
+                originalPoster: true
+            }
+        });
     }
 
     public async createIncident(params: ICreateIncident): Promise<Incident> {
