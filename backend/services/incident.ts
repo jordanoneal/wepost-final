@@ -37,8 +37,12 @@ class IncidentService {
                 id: id
             },
             include: {
-                comments: true,
-                originalPoster: true
+                comments: {
+                    include: {
+                        commenter: true
+                    }
+                },
+                originalPoster: true,
             }
         });
         if (!incident) throw new Error('Incident not found');

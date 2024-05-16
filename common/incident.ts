@@ -1,7 +1,7 @@
 import { IUser } from "./user";
 import { IComment } from "./comment";
 
-type Location = {
+export type Location = {
     zipCode?: string;
     city: string;
     state: string;

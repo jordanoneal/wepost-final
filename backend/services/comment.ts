@@ -7,12 +7,21 @@ const prisma = new PrismaClient();
 
 class CommentService {
     public async retrieveComments(): Promise<Comment[]> {
-        return await prisma.comment.findMany();
+        return await prisma.comment.findMany({
+            include: {
+                commenter: true,
+                associatedIncident: true
+            }
+        });
     }
 
     public async retrieveCommentById(id: number): Promise<Comment> {
         const comment = await prisma.comment.findFirst({
-            where: { id: id }
+            where: { id: id },
+            include: {
+                commenter: true,
+                associatedIncident: true
+            }
         })
         if (!comment) throw new Error('Comment does not exist');
         return comment;
