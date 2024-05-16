@@ -17,7 +17,6 @@ export default function Home() {
 
   const retrieveIncidents = async () => {
     const response = await RetrieveIncidents();
-    console.log(response);
     if (response) setIncidents(response);
   };
 
@@ -34,8 +33,6 @@ export default function Home() {
   };
 
   const viewPost = (incidentId: number) => {
-    // Redirect to incident page
-    console.log('Viewing post', incidentId);
     router.push(`/incident/${incidentId}`);
   };
 
