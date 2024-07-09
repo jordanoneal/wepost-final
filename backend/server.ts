@@ -1,8 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import { userRouter, incidentRouter, commentRouter } from './routes';
+import { userRouter, incidentRouter, commentRouter, authRouter } from './routes';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -14,10 +15,12 @@ app.use(cors({
     origin: 'http://localhost:3001'
 }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use('/users', userRouter);
 app.use('/incidents', incidentRouter);
 app.use('/comments', commentRouter);
+app.use('/auth', authRouter);
 
 
 app.listen(SERVER_PORT, () => {

@@ -1,6 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
 import { ICreateUser } from "../../common/user";
-import { hashPassword } from "./auth";
+import { hashPassword, comparePassword, createToken } from "./auth";
 
 
 const prisma = new PrismaClient();
@@ -37,6 +37,18 @@ class UserService {
             }
         });
         if (!user) throw new Error('User not found');
+        return user;
+    }
+
+    public async getUserByCredentials(username: string, password: string): Promise<User | null> {
+        const user = await prisma.user.findFirst({
+            where: {
+                username: username
+            }
+        });
+        if (!user) throw new Error('User not found');
+        const match = await comparePassword(password, user.password);
+        if (!match) throw new Error('Password does not match');
         return user;
     }
 }

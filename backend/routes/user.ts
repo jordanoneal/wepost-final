@@ -1,6 +1,7 @@
 import express from 'express';
 import { UserService } from '../services/user';
 import { ICreateUser } from '../../common/user';
+import { createToken } from '../services/auth';
 
 const userRouter = express.Router();
 
@@ -16,8 +17,10 @@ userRouter.route('/')
     .post(async (req, res) => {
         try {
             const params: ICreateUser = req.body;
-
             const response = await UserService.createUser(params);
+            const token = await createToken(response.id);
+            
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
             res.status(201).json(response);
         } catch (err: any) {
             res.status(400).json(err.toString());

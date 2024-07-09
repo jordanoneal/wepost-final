@@ -3,13 +3,30 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Login as LoginUser } from '../../services/auth';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [isClient, setIsClient] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
-  const handleLogin = () => { };
+  const handleLogin = async () => {
+    if (!username || !password) {
+      console.log('Please fill in all fields');
+      return;
+    }
+    const response = await LoginUser(username, password);
+    if (!response) {
+      console.log('Invalid credentials');
+      return;
+    }
+
+    console.log(response);
+    router.push('/');
+    return response;
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -19,7 +36,7 @@ export default function Login() {
 
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gray-200 p-4'>
-      <form onSubmit={handleLogin} className='bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-sm'>
+      <form className='bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-sm'>
         <img
           src='/Login.png'
           alt='Logo'
@@ -45,7 +62,7 @@ export default function Login() {
             placeholder='Password'
           />
         </div>
-        <button type='submit' className='p-3 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 mt-6'>Login</button>
+        <button type='button' onClick={handleLogin} className='p-3 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 mt-6'>Login</button>
       </form>
     </div>
   );
