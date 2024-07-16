@@ -3,29 +3,22 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { Login as LoginUser } from '../../services/auth';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/authContext';
 
 export default function Login() {
   const [isClient, setIsClient] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const { login, isAuthenticated, user } = useAuth();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
     if (!username || !password) {
       console.log('Please fill in all fields');
       return;
     }
-    const response = await LoginUser(username, password);
-    if (!response) {
-      console.log('Invalid credentials');
-      return;
-    }
-
-    console.log(response);
-    router.push('/');
-    return response;
+    await login(username, password);
   };
 
   useEffect(() => {
@@ -33,6 +26,10 @@ export default function Login() {
   }, []);
 
   if (!isClient) return null;
+
+  if (isAuthenticated) {
+    return <div>Welcome back, {user?.username}!</div>
+  }
 
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gray-200 p-4'>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Flex } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "../contexts/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 const roboto = Roboto_Flex({ subsets: ["latin"], weight: ['400', '500', '700'] });
@@ -17,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <body className={roboto.className}>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   );
 }

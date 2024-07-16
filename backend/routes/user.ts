@@ -17,11 +17,11 @@ userRouter.route('/')
     .post(async (req, res) => {
         try {
             const params: ICreateUser = req.body;
-            const response = await UserService.createUser(params);
-            const token = await createToken(response.id);
-            
-            res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 });
-            res.status(201).json(response);
+            const user = await UserService.createUser(params);
+
+            const token = await createToken(user.id);
+
+            res.status(201).json({ user, token });
         } catch (err: any) {
             res.status(400).json(err.toString());
         }
