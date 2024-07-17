@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 localStorage.removeItem('token');
             }
         }
-        router.push('/login');
+        // router.push('/login');
     }
 
     useEffect(() => {
@@ -47,7 +47,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
             if (response.data.token) {
                 localStorage.setItem('token', response.data.token);
-                setUser(response.data);
+                setUser(response.data.user);
+                router.push('/');
             }
         } catch (err: any) {
             console.error('Login failed:', err);
@@ -57,6 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const logout = () => {
         localStorage.removeItem('token');
         setUser(null);
+        router.push('/login');
     }
 
     const isAuthenticated = !!user;

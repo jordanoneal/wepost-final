@@ -9,6 +9,9 @@ class IncidentService {
             include: {
                 comments: true,
                 originalPoster: true
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         });
     }

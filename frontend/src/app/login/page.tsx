@@ -3,14 +3,12 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/authContext';
 
 export default function Login() {
   const [isClient, setIsClient] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
   const { login, isAuthenticated, user } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -28,12 +26,12 @@ export default function Login() {
   if (!isClient) return null;
 
   if (isAuthenticated) {
-    return <div>Welcome back, {user?.username}!</div>
+    return <div className='w-full h-screen flex justify-center items-center bg-gray-200 p-4'>Welcome back, {user?.username}!</div>
   }
 
   return (
     <div className='w-full h-screen flex justify-center items-center bg-gray-200 p-4'>
-      <form className='bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-sm'>
+      <div className='bg-white shadow-lg rounded-lg p-6 flex flex-col w-full max-w-sm'>
         <img
           src='/Login.png'
           alt='Logo'
@@ -60,7 +58,7 @@ export default function Login() {
           />
         </div>
         <button type='button' onClick={handleLogin} className='p-3 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 mt-6'>Login</button>
-      </form>
+      </div>
     </div>
   );
 }
