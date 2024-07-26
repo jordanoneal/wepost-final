@@ -1,5 +1,5 @@
 import { PrismaClient, Comment } from "@prisma/client";
-import { ICreateComment } from "../../common/comment";
+import { ICreateComment } from "common.interfaces";
 import { UserService } from "./user";
 import { IncidentService } from "./incident";
 

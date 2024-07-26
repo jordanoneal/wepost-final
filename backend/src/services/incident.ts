@@ -1,5 +1,5 @@
 import { PrismaClient, Incident } from "@prisma/client";
-import { ICreateIncident } from "../../common/incident";
+import { ICreateIncident } from "common.interfaces";
 import { UserService } from "./user";
 
 const prisma = new PrismaClient();

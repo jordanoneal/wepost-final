@@ -1,13 +1,13 @@
 import express from 'express';
-import { ICreateIncident } from '../../common/incident';
-import { IncidentService } from '../services/incident';
+import { CommentService } from '../services';
+import { ICreateComment } from 'common.interfaces';
 
-const incidentRouter = express.Router();
+const commentRouter = express.Router();
 
-incidentRouter.route('/')
+commentRouter.route('/')
     .get(async (req, res) => {
         try {
-            const response = await IncidentService.getIncidents();
+            const response = await CommentService.retrieveComments();
             res.status(200).json(response);
         } catch (err: any) {
             res.status(400).json(err.toString());
@@ -15,25 +15,23 @@ incidentRouter.route('/')
     })
     .post(async (req, res) => {
         try {
-            const params = req.body as ICreateIncident
-
-            const response = await IncidentService.createIncident(params);
+            const params = req.body as ICreateComment;
+            const response = await CommentService.createComment(params);
             res.status(201).json(response);
         } catch (err: any) {
             res.status(400).json(err.toString());
         }
     })
 
-incidentRouter.route('/:id')
+commentRouter.route('/:id')
     .get(async (req, res) => {
         try {
             const id = parseInt(req.params.id);
-            const response = await IncidentService.retrieveIncidentById(id);
+            const response = await CommentService.retrieveCommentById(id);
             res.status(200).json(response);
-
         } catch (err: any) {
             res.status(400).json(err.toString());
         }
     })
 
-export { incidentRouter };
+export { commentRouter };

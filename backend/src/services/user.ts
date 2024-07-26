@@ -1,6 +1,6 @@
 import { PrismaClient, User } from "@prisma/client";
-import { ICreateUser } from "../../common/user";
-import { hashPassword, comparePassword, createToken } from "./auth";
+import { ICreateUser } from "common.interfaces";
+import { hashPassword, comparePassword } from "./auth";
 
 
 const prisma = new PrismaClient();

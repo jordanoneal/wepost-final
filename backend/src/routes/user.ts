@@ -1,13 +1,13 @@
 import express from 'express';
-import { CommentService } from '../services/comment';
-import { ICreateComment } from '../../common/comment';
+import { UserService, createToken } from '../services';
+import { ICreateUser } from 'common.interfaces';
 
-const commentRouter = express.Router();
+const userRouter = express.Router();
 
-commentRouter.route('/')
+userRouter.route('/')
     .get(async (req, res) => {
         try {
-            const response = await CommentService.retrieveComments();
+            const response = await UserService.getUsers();
             res.status(200).json(response);
         } catch (err: any) {
             res.status(400).json(err.toString());
@@ -15,23 +15,26 @@ commentRouter.route('/')
     })
     .post(async (req, res) => {
         try {
-            const params = req.body as ICreateComment;
-            const response = await CommentService.createComment(params);
-            res.status(201).json(response);
+            const params: ICreateUser = req.body;
+            const user = await UserService.createUser(params);
+
+            const token = await createToken(user.id);
+
+            res.status(201).json({ user, token });
         } catch (err: any) {
             res.status(400).json(err.toString());
         }
-    })
+    });
 
-commentRouter.route('/:id')
+userRouter.route('/:id')
     .get(async (req, res) => {
         try {
             const id = parseInt(req.params.id);
-            const response = await CommentService.retrieveCommentById(id);
+            const response = await UserService.getUserById(id);
             res.status(200).json(response);
         } catch (err: any) {
             res.status(400).json(err.toString());
         }
     })
 
-export { commentRouter };
+export { userRouter };

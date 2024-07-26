@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { UserService } from '../services/user';
-import { createToken, verifyToken } from '../services/auth';
+import { UserService, createToken, verifyToken } from '../services'
 
 const authRouter = Router();
 
