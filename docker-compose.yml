@@ -8,10 +8,27 @@ services:
       - 5434:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD=mysecretpassword
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=wepost
+    env_file:
+      - ./backend/.env
+    networks:
+      - wepost-network
+  backend:
+    container_name: wepost-backend-container_name
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile
+    env_file:
+      - ./backend/.env
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgres
+    networks:
+      - wepost-network
 
 volumes:
   pgdata:
+
+
+networks:
+  wepost-network:
