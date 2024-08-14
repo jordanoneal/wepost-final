@@ -1,6 +1,6 @@
 'use server'
 import axios from "axios"
-import { IComment, ICreateComment } from "../../../common"
+import { IComment, ICreateComment } from "@common.interfaces"
 
 export async function CreateComment(params: ICreateComment): Promise<IComment | undefined> {
     try {

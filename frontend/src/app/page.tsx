@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { ICreateIncident, IIncident, Location } from '../../../common'
+import { ICreateIncident, IIncident, Location } from '@common.interfaces'
 import { CreateIncident, RetrieveIncidents } from '../services'
 import Modal from '@/components/modal/Modal'
 import { useRouter } from 'next/navigation'

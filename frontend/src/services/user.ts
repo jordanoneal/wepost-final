@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ICreateUser, IUser } from "../../../common";
+import { ICreateUser, IUser } from "@common.interfaces";
 
 export async function CreateUser(params: ICreateUser): Promise<IUser | undefined> {
     try {

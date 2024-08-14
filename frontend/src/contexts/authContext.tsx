@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
-import { IUser } from "../../../common";
+import { IUser } from "@common.interfaces";
 import { useRouter } from "next/navigation";
 
 interface AuthContextType {

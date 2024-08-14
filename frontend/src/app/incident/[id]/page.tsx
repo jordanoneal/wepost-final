@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { RetrieveIncident } from '@/services/incident';
-import { ICreateComment, IIncident } from '../../../../../common';
+import { ICreateComment, IIncident } from '@common.interfaces';
 import Modal from '@/components/modal/Modal';
 import { CreateComment } from '@/services/comment';
 import Logo from '@/components/logo/Logo';

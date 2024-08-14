@@ -1,7 +1,7 @@
 'use server'
 
 import axios from "axios"
-import { ICreateIncident, IIncident } from "../../../common"
+import { ICreateIncident, IIncident } from "@common.interfaces"
 
 export const RetrieveIncidents = async (): Promise<IIncident[] | undefined> => {
     const response = await axios.get('http://localhost:4000/incidents', { withCredentials: true })

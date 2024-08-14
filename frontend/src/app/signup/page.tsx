@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { ICreateUser } from '../../../../common';
+import { ICreateUser } from '@common.interfaces';
 import { CreateUser } from '../../services/user';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
